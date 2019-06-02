@@ -1,12 +1,6 @@
 # Start script
 cd ../../$PROJECT
 
-# Asks user for github credentials
-echo Please set your Github credentials :
-printf 'Username :'; read USERNAME;
-printf 'Mail address :'; read MAIL;
-printf 'Password :'; read PASSWORD;
-
 # Creates github repository // modify $REPO to new_repo.json
 touch repo_infos.json
 echo '{
@@ -14,8 +8,8 @@ echo '{
     "description": "New fullstack generated projet", 
     "homepage": "https://github.com", 
     "private": true
-    }' > new_repo.json
-curl -i -u $MAIL:$PASSWORD -vX POST https://api.github.com/user/repos -d @new_repo.json \
+    }' > repo_infos.json
+curl -i -u $MAIL:$PASSWORD -vX POST https://api.github.com/user/repos -d @repo_infos.json \
 --header "Content-Type: application/json"
 
 # Init local repo to be a git repo
