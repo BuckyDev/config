@@ -1,19 +1,27 @@
 # Start script
+cd ../../$PROJECT
 
-# Asks user for git credentials
-echo Please set your Github credentials :
-printf 'Username :'; read USERNAME; export USERNAME
-printf 'Mail address :'; read MAIL; export MAIL
-printf 'Password :'; read PASSWORD; export PASSWORD
+# Creates github repository // modify $REPO to new_repo.json
+touch repo_infos.json
+echo '{
+    "name": "'$PROJECT'",
+    "description": "New fullstack generated projet", 
+    "homepage": "https://github.com", 
+    "private": true
+    }' > repo_infos.json
+curl -i -u $MAIL:$PASSWORD -vX POST https://api.github.com/user/repos -d @repo_infos.json \
+--header "Content-Type: application/json"
 
-# Creates it repository
-#curl -u $MAIL:$PASSWORD -d '{"name":' '"'"${PROJECT}"'", "description": "Test of github api", "homepage": "https://github.com", "private": true}' -X POST https://api.github.com/user/repos
-#git init
-#git config user.email $MAIL
-#git config user.name $USERNAME
-#git add . && git commit -m "Init repo"
-#git remote add origin https://github.com/BuckyDev/$PROJECT.git
-#git push -u origin master
+# Init local repo to be a git repo
+git init
+git config user.email $MAIL
+git config user.name $USERNAME
+git add . && git commit -m "Init repo"
+
+# Bind and push to remote repo
+git remote add origin https://github.com/BuckyDev/$PROJECT
+git push -u origin master
 echo 'Created and fetched project with Github repository'
 
 # End script
+cd ../config/setup
