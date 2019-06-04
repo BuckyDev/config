@@ -20,6 +20,11 @@ App.get('"'/'"', (req,res) => {
   res.send('"'Welcome home'"');
 
 // Connect
+mongoose.connect(
+  process.env.DB_CONNECTION, 
+  { useNewUrlParser: true }, 
+  () => console.log('"'Connected to database'"')
+)
 
 // Start listening
 App.listen(1000);
