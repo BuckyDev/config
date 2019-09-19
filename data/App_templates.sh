@@ -18,6 +18,7 @@ App.use('"'/posts'"', postsRoute)
 // Routes
 App.get('"'/'"', (req,res) => {
   res.send('"'Welcome home'"');
+});
 
 // Connect
 mongoose.connect(
